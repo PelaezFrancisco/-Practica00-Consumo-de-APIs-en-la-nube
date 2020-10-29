@@ -64,9 +64,6 @@ function post(page){
     console.log("Page-->"+page)
     console.log("NumPages-->"+numPages());
     console.log("Resul.length-->"+resul.totalResults)
-   
-    //resul = JSON.parse(resul);
-    //resul = jQuery.parseJSON(JSON.stringify(resul));
     
     var paginas = document.getElementById("pagina");
     if(page<1){page=1} //Validacion de la pagina 1 para que no este en 0
@@ -77,6 +74,7 @@ function post(page){
 
         var seccion = document.getElementById("post"+j)//seccion
         seccion.innerHTML=""; //Limpieza anterior
+
         //URL
         var plink = document.createElement("A");
         plink.href=resul.articles[i].url
@@ -123,7 +121,7 @@ function post(page){
         j++;
         //seccion.innerHTML += resul.articles[i].title + "<br>";
     }
-
+    document.getElementById("sigPagina").style.display = "none";
     paginas.innerHTML = "Pagina "+page;
 
 }
