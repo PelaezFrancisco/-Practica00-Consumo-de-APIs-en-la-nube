@@ -62,13 +62,15 @@ function post(page){
     console.log(resul);
     
     console.log("Page-->"+page)
+    console.log("NumPages-->"+numPages());
+    console.log("Resul.length-->"+resul.totalResults)
    
     //resul = JSON.parse(resul);
     //resul = jQuery.parseJSON(JSON.stringify(resul));
     
     var paginas = document.getElementById("pagina");
     if(page<1){page=1} //Validacion de la pagina 1 para que no este en 0
-    if(page>Math.ceil(resul.length / postperpage)){page=numPages()}//Si se excede del numero de paginas puestas, este es el maximo
+    if(page>numPages()){page=numPages()}//Si se excede del numero de paginas puestas, este es el maximo
 
     var j=1;
     for (var i = (page-1) * postperpage; i < (page * postperpage); i++) {
@@ -84,7 +86,7 @@ function post(page){
         var ptitulo = document.createElement("H2");
         ptitulo.className = "post-title";
         var t = resul.articles[i].title;
-        if(t.length>50){t=t.substring(0,80)+"...";}//Recortar el titulo
+        if(t.length>50){t=t.substring(0,100)+"...";}//Recortar el titulo
         ptitulo.innerHTML = t;
         plink.appendChild(ptitulo);
 
@@ -102,7 +104,7 @@ function post(page){
         pimg.width = 500;
         pimg.height = 300;
         var m = resul.articles[i].urlToImage;
-        if(m == null){m="/img/noimage.png"} //Si imagen es nula
+        if(m == null){m="https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg"} //Si imagen es nula
         pimg.src = m;
         seccion.appendChild(pimg);
 
@@ -138,13 +140,17 @@ function prevPage()
 //Siguiente Pagina
 function nextPage()
 {
+    console.log("Entro a next");
     if (current_page < numPages()) {
         current_page++;
         post(current_page);
     }
 }
 //Maxima paginas por consulta
-
+function numPages()
+{
+    return Math.ceil(resul.totalResults / postperpage);
+}
 //Funcionalidad de Select o Scrollbars
 function cambioBusqueda(){
     console.log("CambiooooooS");
